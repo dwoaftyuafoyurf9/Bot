@@ -1,0 +1,54 @@
+
+name: Build Geode Mod
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            target: Win64
+
+          - name: Android64
+            os: ubuntu-latest
+            target: Android64
+
+          - name: Android32
+            os: ubuntu-latest
+            target: Android32
+
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          target: ${{ matrix.target }}
+          combine: true
+
+  package:
+    name: Combine builds
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Combine Geode builds
+        uses: geode-sdk/build-geode-mod/combine@main
+        id: combine
+
+      - name: Upload mod
+        uses: actions/upload-artifact@v4
+        with:
+          name: Geode-Mod-All-Platforms
+          path: ${{ steps.combine.outputs.build-output }}
