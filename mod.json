@@ -6,11 +6,11 @@
 		"mac": "2.2081",
 		"ios": "2.2081"
 	},
-	"id": "$MOD_ID",
-	"name": "$MOD_NAME",
-	"version": "$MOD_VERSION",
-	"developer": "$MOD_DEVELOPER",
-	"description": "$MOD_DESCRIPTION",
+	"id": "claudey.ClaudeReplay",
+	"name": "Claude Replay",
+	"version": "1",
+	"developer": "Claude",
+	"description": "An GD Bot used for showcases with features.",
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	}
